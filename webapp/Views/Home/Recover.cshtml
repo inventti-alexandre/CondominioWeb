@@ -1,0 +1,47 @@
+﻿@model BuildingProject.Model.User
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/css/Login.css">
+    <meta name="viewport" content="width=device-width" />
+    <title>Envío Contraseña</title>
+</head>
+<body background="@Settings.Background">
+    <br />
+    <br />
+    <br />
+    <br />
+    <form id="order-form" novalidate="novalidate" method="post">
+        @Html.HiddenFor(model => model.username)
+        <h1>
+            Recuperación de Contraseña
+        </h1>
+        <div class="inset">
+            <p>
+                <label for="email">Usuario</label>
+                <input type="text" name="email" id="usuarioLogin">
+                @if (Model.result == 1)
+                {
+                    <span>(*)Su contraseña ha sido enviada a su correo</span>
+                }
+                @if (Model.result == 2)
+                {
+                    <span>(*)El usuario es erroneo</span>
+                }
+            </p>
+        </div>
+        <p class="p-container">
+            <a href="~/Home/Login">Volver</a>
+            <input type="submit" name="go" id="go" value="Recuperar" onclick="Recupera()">
+        </p>
+    </form>
+</body>
+</html>
+<script type="text/javascript">
+function Recupera() {
+        debugger;
+
+        document.getElementById("username").value = document.getElementById("usuarioLogin").value;
+    }</script>

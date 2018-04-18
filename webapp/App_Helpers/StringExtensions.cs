@@ -1,4 +1,4 @@
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public static class StringExtensions
     {

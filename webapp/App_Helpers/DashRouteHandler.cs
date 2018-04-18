@@ -6,7 +6,7 @@ using System.Web.Routing;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public class DashRouteHandler : MvcRouteHandler
     {

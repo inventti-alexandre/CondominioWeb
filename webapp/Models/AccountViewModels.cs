@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 #endregion
 
-namespace SmartAdminMvc.Models
+namespace BuildingProject.Models
 {
     public class AccountLoginModel
     {

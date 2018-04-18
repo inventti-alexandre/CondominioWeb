@@ -4,7 +4,7 @@ using System.Web.Optimization;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public static class BundleConfig
     {

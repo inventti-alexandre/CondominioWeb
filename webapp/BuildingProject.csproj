@@ -48,11 +48,11 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="LightInject, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LightInject.5.1.2\lib\net452\LightInject.dll</HintPath>
@@ -255,6 +255,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\lockscreen.min.css" />
+    <Content Include="Content\css\Login.css" />
     <Content Include="Content\css\smartadmin-production.min.css" />
     <Content Include="Content\css\smartadmin-rtl.min.css" />
     <Content Include="Content\css\smartadmin-skins.min.css" />
@@ -271,7 +272,6 @@
     <Content Include="Content\img\avatars\3.png" />
     <Content Include="Content\img\avatars\4.png" />
     <Content Include="Content\img\avatars\5.png" />
-    <Content Include="Content\img\avatars\copyright.txt" />
     <Content Include="Content\img\avatars\female.png" />
     <Content Include="Content\img\avatars\male.png" />
     <Content Include="Content\img\avatars\sunny-big.png" />
@@ -284,7 +284,6 @@
     <Content Include="Content\img\demo\64x64.png" />
     <Content Include="Content\img\demo\basic.png" />
     <Content Include="Content\img\demo\chat.png" />
-    <Content Include="Content\img\demo\copyright.txt" />
     <Content Include="Content\img\demo\demo-smartbig-alert.png" />
     <Content Include="Content\img\demo\demo-smartmedium-alert.png" />
     <Content Include="Content\img\demo\demo-smartsmall-alert.png" />
@@ -303,14 +302,11 @@
     <Content Include="Content\img\demo\sample.jpg" />
     <Content Include="Content\img\demo\sidebar.png" />
     <Content Include="Content\img\demo\sidebarhero.png" />
-    <Content Include="Content\img\demo\site-1.jpg" />
-    <Content Include="Content\img\demo\site-2.jpg" />
     <Content Include="Content\img\demo\video.png" />
     <Content Include="Content\img\demo\widget-colorpicker.png" />
     <Content Include="Content\img\favicon\favicon.ico" />
     <Content Include="Content\img\favicon\favicon.png" />
     <Content Include="Content\img\flags\flags.png" />
-    <Content Include="Content\img\glass-image-copyright.txt" />
     <Content Include="Content\img\glass.jpg" />
     <Content Include="Content\img\gradient\login.png" />
     <Content Include="Content\img\hue.png" />
@@ -378,9 +374,6 @@
     <None Include="Properties\PublishProfiles\SmartAdmin - Release.pubxml" />
     <None Include="Properties\PublishProfiles\SmartAdmin - Debug.pubxml" />
     <Content Include="Scripts\app.config.js" />
-    <Content Include="Scripts\app.config.seed.min.js">
-      <DependentUpon>app.config.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\demo.min.js" />
@@ -845,9 +838,6 @@
     <Content Include="Views\Account\_SocialMedia.cshtml" />
     <Content Include="Views\Account\Lock.cshtml" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.map" />
-    <Content Include="Scripts\app.config.seed.min.js.map">
-      <DependentUpon>app.config.seed.min.js</DependentUpon>
-    </Content>
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
@@ -865,6 +855,23 @@
     <Content Include="Scripts\plugin\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="Scripts\plugin\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Scripts\plugin\ckeditor\skins\moono\readme.md" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Recover.cshtml" />
+    <Content Include="Views\Home\UpdatePassword.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Options\Create.cshtml" />
+    <Content Include="Views\Options\Delete.cshtml" />
+    <Content Include="Views\Options\Details.cshtml" />
+    <Content Include="Views\Options\Edit.cshtml" />
+    <Content Include="Views\Options\Index.cshtml" />
+    <Content Include="Views\UserRoles\Delete.cshtml" />
+    <Content Include="Views\UserRoles\Index.cshtml" />
+    <Content Include="Views\RoleOptions\Delete.cshtml" />
+    <Content Include="Views\RoleOptions\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -892,7 +899,11 @@
     <Compile Include="Areas\Landing\LandingAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OptionsController.cs" />
+    <Compile Include="Controllers\RoleOptionsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserRolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

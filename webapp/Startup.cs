@@ -1,6 +1,6 @@
 ﻿using Owin;
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public partial class Startup
     {

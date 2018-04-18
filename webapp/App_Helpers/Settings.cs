@@ -8,7 +8,7 @@ using Microsoft.Ajax.Utilities;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     /// <summary>
     ///     Provides access to the current application's configuration file.
@@ -24,6 +24,11 @@ namespace SmartAdminMvc
         ///     Retrieves the entry value for the following composed key: "config:Company" as a string.
         /// </summary>
         public static readonly string Company = GetValue<string>("Company");
+
+        /// <summary>
+        ///     Retrieves the entry value for the following composed key: "config:Background" as a string.
+        /// </summary>
+        public static readonly string Background = GetValue<string>("Background");
 
         /// <summary>
         ///     Retrieves the entry value for the following composed key: "config:Project" as a string.
@@ -44,6 +49,11 @@ namespace SmartAdminMvc
         ///     Retrieves the entry value for the following composed key: "config:CurrentTheme" as a string.
         /// </summary>
         public static readonly string CurrentTheme = GetValue<string>("CurrentTheme");
+
+        /// <summary>
+        ///     Retrieves the entry value for the following composed key: "config:CurrentLogo" as a string.
+        /// </summary>
+        public static readonly string CurrentLogo = GetValue<string>("CurrentLogo");
 
         /// <summary>
         ///     Gets the entry for the given key and prefix and retrieves its value as the specified type.
@@ -82,6 +92,25 @@ namespace SmartAdminMvc
 
             // Change the entry value to the specified type
             return (T) Convert.ChangeType(value, typeof (T));
+        }
+
+        /// <summary>
+        ///     To dynamical replace the appSettings "config:CurrentTheme"
+        ///     Calling function such as Settings.SetValue<string>("config:CurrentTheme", "smart-style-0");
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">the key of the theme === config:CurrentTheme</param>
+        /// <param name="value">the value of the theme === smart-style-{0}</param>
+        /// <returns></returns>
+        public static T SetValue<T>(string key, string value)
+        {
+            var config = WebConfigurationManager.OpenWebConfiguration("~");
+
+            config.AppSettings.Settings[key].Value = value;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+
+            return default(T);
         }
     }
 }

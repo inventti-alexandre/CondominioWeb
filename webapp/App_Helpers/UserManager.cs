@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public class UserManager : UserManager<IdentityUser>
     {

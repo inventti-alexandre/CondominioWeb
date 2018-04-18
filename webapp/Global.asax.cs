@@ -1,5 +1,7 @@
 ﻿#region Using
 
+using BuildingProject.DataAccess.Migrations;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -7,7 +9,7 @@ using System.Web.Routing;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public class MvcApplication : HttpApplication
     {
@@ -18,6 +20,9 @@ namespace SmartAdminMvc
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataAccess.BuildingContext, DataAccess.Migrations.Configuration>());
+            DataAccess.BuildingContext objContext = new DataAccess.BuildingContext();
+            Configuration.Seed(objContext);
         }
     }
 }

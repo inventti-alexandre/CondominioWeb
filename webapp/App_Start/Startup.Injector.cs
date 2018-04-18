@@ -1,7 +1,7 @@
 ﻿using LightInject;
 using System.Reflection;
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public partial class Startup
     {

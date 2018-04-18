@@ -10,11 +10,11 @@ using System.Web.Security;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using SmartAdminMvc.Models;
+using BuildingProject.Models;
 
 #endregion
 
-namespace SmartAdminMvc.Controllers
+namespace BuildingProject.Controllers
 {
     [Authorize]
     public class AccountController : Controller

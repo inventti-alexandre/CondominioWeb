@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public static class FilterConfig
     {

@@ -10,7 +10,7 @@ using Microsoft.Ajax.Utilities;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public static class HtmlHelperExtensions
     {

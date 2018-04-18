@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BuildingProject.Model;
 using BuildingProject.DataAccess;
+using System;
 
-namespace SmartAdminMvc.Controllers
+namespace BuildingProject.Controllers
 {
     public class UserController : Controller
     {
@@ -18,28 +15,19 @@ namespace SmartAdminMvc.Controllers
         // GET: /User/
         public ActionResult Index()
         {
-            return View(db.User.ToList());
-        }
-
-        // GET: /User/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.User.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
+            if (DataUtil.Validation())
+                return View(db.User.ToList().OrderBy(x => x.name));
+            else
+                return RedirectToAction("Login", "Home");
+        }        
 
         // GET: /User/Create
         public ActionResult Create()
         {
-            return View();
+            if (DataUtil.Validation())
+                return View();
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // POST: /User/Create
@@ -47,31 +35,56 @@ namespace SmartAdminMvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="userID,name,lastname,email,dni,phonenumber,username,password,active,createDate,createUser,updateDate,updateUser")] User user)
+        public ActionResult Create([Bind(Include = "userID,name,lastname,username,password,active,email,dni,phonenumber,createDate,createUser,updateDate,updateUser")] User user)
         {
-            if (ModelState.IsValid)
+            if (DataUtil.Validation())
             {
-                db.User.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    var objUser = db.User.FirstOrDefault(u => u.username == user.username);
+                    var objUserEmail = db.User.FirstOrDefault(u => u.email == user.email);
+                    if (objUser == null && objUserEmail == null)
+                    {
+                        user.createDate = DateTime.Now;
+                        db.User.Add(user);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        if (objUser != null)
+                            user.messageErrorUser = "El usuario ingresado ya existe!.";
 
-            return View(user);
+                        if (objUserEmail != null)
+                            user.messageErrorEmail = "El email ingresado ya existe!.";
+
+                        return View(user);
+                    }
+                }
+                return View(user);
+            }
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // GET: /User/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (DataUtil.Validation())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.User.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            User user = db.User.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // POST: /User/Edit/5
@@ -79,30 +92,49 @@ namespace SmartAdminMvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="userID,name,lastname,email,dni,phonenumber,username,password,active,createDate,createUser,updateDate,updateUser")] User user)
+        public ActionResult Edit([Bind(Include = "userID,name,lastname,username,password,active,email,dni,phonenumber,createDate,createUser,updateDate,updateUser")] User user)
         {
-            if (ModelState.IsValid)
+            if (DataUtil.Validation())
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var objUserEmail = db.User.FirstOrDefault(u => u.email == user.email && u.userID != user.userID);
+                    if (objUserEmail != null)
+                    {
+                        user.messageErrorEmail = "El email ingresado ya existe!.";
+                    }
+                    else
+                    {
+                        user.updateDate = DateTime.Now;
+                        db.Entry(user).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
+                return View(user);
             }
-            return View(user);
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // GET: /User/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (DataUtil.Validation())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.User.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            User user = db.User.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // POST: /User/Delete/5
@@ -110,10 +142,15 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.User.Find(id);
-            db.User.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (DataUtil.Validation())
+            {
+                User user = db.User.Find(id);
+                db.User.Remove(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         protected override void Dispose(bool disposing)

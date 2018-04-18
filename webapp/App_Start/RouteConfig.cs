@@ -5,7 +5,7 @@ using System.Web.Routing;
 
 #endregion
 
-namespace SmartAdminMvc
+namespace BuildingProject
 {
     public static class RouteConfig
     {
@@ -15,7 +15,7 @@ namespace SmartAdminMvc
             routes.LowercaseUrls = true;
             routes.MapRoute("Default", "{controller}/{action}/{id}", new
             {
-                controller = "User",
+                controller = "Home",
                 action = "Index",
                 id = UrlParameter.Optional
             }).RouteHandler = new DashRouteHandler();
