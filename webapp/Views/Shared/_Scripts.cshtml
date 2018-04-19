@@ -7,23 +7,43 @@
 @*@if (Request.IsAuthenticated)
 {*@
     <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-    <script data-pace-options='{ "restartOnRequestAfter": true }' src="~/scripts/plugin/pace/pace.min.js"></script>
+    <script data-pace-options='{ "restartOnRequestAfter": true }' src="/scripts/plugin/pace/pace.min.js"></script>
     <!-- Demo purpose only! -->
     <script src="/scripts/demo.min.js"></script>
 @*}*@
 
 <!-- IMPORTANT: SmartAdmin Core -->
 @Scripts.Render("~/scripts/smartadmin")
-
+    @*<script src="~/scripts/app.config.js"></script>
+    <script src="~/scripts/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
+    <script src="~/scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="~/scripts/notification/SmartNotification.min.js"></script>
+    <script src="~/scripts/smartwidgets/jarvis.widget.min.js"></script>
+    <script src="~/scripts/plugin/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/scripts/plugin/masked-input/jquery.maskedinput.min.js"></script>
+    <script src="~/scripts/plugin/select2/select2.min.js"></script>
+    <script src="~/scripts/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+    <script src="~/scripts/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="~/scripts/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+    <script src="~/scripts/plugin/fastclick/fastclick.min.js"></script>
+    <script src="~/scripts/app.min.js"></script>*@
 
 <!-- SmartChat UI : plugin -->
 @Scripts.Render("~/scripts/smart-chat")
 <!-- DataTables : plugin -->
 @Scripts.Render("~/scripts/datatables")
+    @*<script src="~/scripts/plugin/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/scripts/plugin/datatables/dataTables.colVis.min.js"></script>
+    <script src="~/scripts/plugin/datatables/dataTables.tableTools.min.js"></script>
+    <script src="~/scripts/plugin/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/scripts/plugin/datatable-responsive/datatables.responsive.min.js"></script>*@
 <!-- jQGrid : plugin -->
 @Scripts.Render("~/scripts/jq-grid")
+    @*<script src="~/scripts/plugin/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="~/scripts/plugin/jqgrid/grid.locale-en.min.js"></script>*@
 <!-- Forms : plugin -->
 @Scripts.Render("~/scripts/forms")
+    @*<script src="~/scripts/plugin/jquery-form/jquery-form.min.js"></script>*@
 <!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip, Morris, Sparkline, EasyPie -->
 @Scripts.Render("~/scripts/charts")
 <!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->

@@ -10,8 +10,16 @@ namespace BuildingProject
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory(
-                "~/content/css", "*.min.css"));
+            //bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory(
+            //    "~/Content/css", "*.min.css",true));
+            bundles.Add(new StyleBundle("~/content/smartadmin").Include(
+                "~/Content/css/bootstrap.min.css",
+                "~/Content/css/font-awesome.min.css",
+                "~/Content/css/lockscreen.min.css",
+                "~/Content/css/smartadmin-production.min.css",
+                "~/Content/css/smartadmin-rtl.min.css",
+                "~/Content/css/smartadmin-skins.min.css"));
+
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",

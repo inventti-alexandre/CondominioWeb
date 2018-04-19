@@ -22,7 +22,7 @@ namespace BuildingProject
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataAccess.BuildingContext, DataAccess.Migrations.Configuration>());
             DataAccess.BuildingContext objContext = new DataAccess.BuildingContext();
-            Configuration.Seed(objContext);
+            //Configuration.Seed(objContext);
         }
     }
 }
