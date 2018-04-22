@@ -8,7 +8,7 @@ using System;
 
 namespace BuildingProject.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private BuildingContext db = new BuildingContext();
 

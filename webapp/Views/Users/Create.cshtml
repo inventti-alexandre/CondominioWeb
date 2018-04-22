@@ -1,14 +1,13 @@
 ﻿@model BuildingProject.Model.User
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
-
 
 <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
     <header>
         <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
-        <h2>Editar Usuario</h2>
+        <h2>Nuevo Usuario</h2>
     </header>
     <div>
         <div class="jarviswidget-editbox">
@@ -19,7 +18,6 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.userID)
                     @Html.HiddenFor(model => model.createUser)
                     @Html.HiddenFor(model => model.createDate)
                     @Html.HiddenFor(model => model.updateUser)
@@ -44,8 +42,9 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.messageErrorUser, "", htmlAttributes: new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -80,23 +79,22 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.active)
-                                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
-                                </div>
+                                @Html.CheckBoxFor(model => model.active, htmlAttributes: new { @checked = true })
+                                @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Registrar" class="btn bg-color-blueDark txt-color-white" />
-                                    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn bg-color-blueDark txt-color-white" })
+                                    <input type="submit" value="Registrar" class="btn" style="background-color:#1b1e24; color:white" />
+                                    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn", @style= "background-color:#1b1e24; color:white" })
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
+                               }
             </fieldset>
         </div>
     </div>

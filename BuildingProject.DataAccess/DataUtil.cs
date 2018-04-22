@@ -13,7 +13,10 @@ namespace BuildingProject.DataAccess
 
         public static User GetUser()
         {
-            return (User)HttpContext.Current.Session["USR_SESSION"];
+            if (HttpContext.Current.Session["USR_SESSION"] != "")
+                return (User)HttpContext.Current.Session["USR_SESSION"];
+            else
+                return null;
         }
         public static bool Validation()
         {
