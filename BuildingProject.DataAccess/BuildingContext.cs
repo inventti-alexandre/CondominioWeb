@@ -7,12 +7,18 @@ namespace BuildingProject.DataAccess
     public class BuildingContext:DbContext
     {
         public BuildingContext():base("BuildingProjectConnectionString")
-        {           
+        {
+            Configuration.ProxyCreationEnabled = false;
+            Database.SetInitializer(new SeedData());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BuildingContext>());
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<ForeignKeyIndexConvention>();
+            //modelBuilder.Conventions.Remove<ForeignKeyIndexConvention>();
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();
+
+            //Database.SetInitializer(new SeedData());
         }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }
@@ -23,5 +29,6 @@ namespace BuildingProject.DataAccess
         public virtual DbSet<Section> Section { get; set; }
         public virtual DbSet<Apartment> Apartment { get; set; }
         public virtual DbSet<ApartmentUser> ApartmentUser { get; set; }
+
     }
 }

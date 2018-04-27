@@ -32,6 +32,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            @Html.DisplayNameFor(model => model.building.name)
+                                        </th>
+                                        <th>
                                             @Html.DisplayNameFor(model => model.section.name)
                                         </th>
                                         <th>
@@ -39,29 +42,32 @@
                                         </th>
                                         <th>
                                             @Html.DisplayNameFor(model => model.active)
-                                        </th>                                        
+                                        </th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.section.name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.active)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.apartmentID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.apartmentID }) |
-                                                @Html.ActionLink("Propietarios", "Index","ApartmentUsers", new { id = item.apartmentID })
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.building.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.section.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.active)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.apartmentID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.apartmentID }) |
+                                            @Html.ActionLink("Propietarios", "Index", "ApartmentUsers", new { id = item.apartmentID })
+                                        </td>
+                                    </tr>
                                     }
 
                                 </tbody>
