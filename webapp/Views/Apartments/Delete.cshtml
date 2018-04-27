@@ -1,0 +1,60 @@
+﻿@model BuildingProject.Model.Apartment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
+    <header>
+        <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+        <h2>Eliminar Departamento</h2>
+    </header>
+    <div>
+        <div class="jarviswidget-editbox">
+        </div>
+        <div class="widget-body">
+            <fieldset>
+                <h3>@System.Configuration.ConfigurationManager.AppSettings["SecureQuestion"]</h3>
+                <div>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.section.name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.section.name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.active)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.active)
+                        </dd>
+                    </dl>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Eliminar" class="btn" style="background-color:#1b1e24; color:white" />
+                            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

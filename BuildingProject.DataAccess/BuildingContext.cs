@@ -19,5 +19,9 @@ namespace BuildingProject.DataAccess
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<Option> Option { get; set; }
         public virtual DbSet<RoleOption> RoleOption { get; set; }
+        public virtual DbSet<Building> Building { get; set; }
+        public virtual DbSet<Section> Section { get; set; }
+        public virtual DbSet<Apartment> Apartment { get; set; }
+        public virtual DbSet<ApartmentUser> ApartmentUser { get; set; }
     }
 }
