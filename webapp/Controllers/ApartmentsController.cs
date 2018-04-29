@@ -20,7 +20,7 @@ namespace SmartAdminMvc.Controllers
         {
             if (DataUtil.Validation())
             {
-                var apartment = db.Apartment.Include(a => a.section);
+                var apartment = db.Apartment.Include(a => a.section).Include(a=>a.section.building);
                 return View(apartment.ToList());
             }
             else
@@ -72,6 +72,7 @@ namespace SmartAdminMvc.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Apartment apartment = db.Apartment.Find(id);
+                
                 if (apartment == null)
                 {
                     return HttpNotFound();

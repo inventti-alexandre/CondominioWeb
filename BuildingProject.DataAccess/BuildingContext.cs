@@ -14,11 +14,8 @@ namespace BuildingProject.DataAccess
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Conventions.Remove<ForeignKeyIndexConvention>();
-            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ForeignKeyIndexConvention>();
             modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();
-
-            //Database.SetInitializer(new SeedData());
         }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }

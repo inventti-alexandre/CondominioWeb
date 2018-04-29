@@ -29,6 +29,9 @@ namespace BuildingProject.Model
         [Display(Name = "Ciudad")]
         [MaxLength(length: 100)]
         public string city { get; set; }
+        [Display(Name = "Distrito")]
+        [MaxLength(length: 100)]
+        public string district { get; set; }
         [Display(Name = "Num. Viviendas")]        
         public int apartmentQuantity { get; set; }
         [Display(Name = "Activo")]

@@ -8,7 +8,6 @@ namespace BuildingProject.Model
     {
         [Key]
         public int apartmentID { get; set; }
-        public int buildingID { get; set; }
         public int sectionID { get; set; }
         [Display(Name = "Nombre")]
         [MaxLength(length: 100)]
@@ -27,7 +26,7 @@ namespace BuildingProject.Model
         [NotMapped]
         [Display(Name = "U. Modificador")]
         public string updateUserStr { get; set; }
-        public virtual Building building { get; set; }
         public virtual Section section { get; set; }
+        public virtual Building building { get; set; }
     }
 }
