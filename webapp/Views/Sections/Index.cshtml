@@ -81,8 +81,9 @@
                                                 @Html.DisplayFor(modelItem => item.updateUser)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Modificar", "Edit", new { id = item.sectionID })|
-                                                @Html.ActionLink("Eliminar", "Delete", new { id = item.sectionID })
+                                                @Html.ActionLink("Modificar", "Edit", new { id = item.sectionID }) |
+                                                @Html.ActionLink("Eliminar", "Delete", new { id = item.sectionID }) |
+                                                @Html.ActionLink("Departamentos", "Index", "Apartments", new { id = item.sectionID}, null)
                                             </td>
                                         </tr>
                                     }

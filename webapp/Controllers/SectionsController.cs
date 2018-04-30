@@ -13,12 +13,12 @@ namespace SmartAdminMvc.Controllers
         private BuildingContext db = new BuildingContext();
 
         // GET: Sections
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             if (DataUtil.Validation())
             {
                 var section = db.Section.Include(a => a.building);
-                return View(section.ToList());
+                return View(section.ToList().Where(x=>x.buildingID==id).ToList());
             }
             else
                 return RedirectToAction("Login", "Home");

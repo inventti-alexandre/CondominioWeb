@@ -32,7 +32,7 @@
                             <a href="@Url.Action("index", "Buildings")" title="Maestros"><span class="menu-item-parent">@option.GetOption(4).name</span></a>
                         </li>
                     }
-                    @if (option.ValidateOption(DataUtil.GetUser().userID, 5))
+                    @*@if (option.ValidateOption(DataUtil.GetUser().userID, 5))
                     {
                         <li>
                             <a href="@Url.Action("index", "Sections")" title="Maestros"><span class="menu-item-parent">@option.GetOption(5).name</span></a>
@@ -43,7 +43,7 @@
                         <li>
                             <a href="@Url.Action("index", "Apartments")" title="Maestros"><span class="menu-item-parent">@option.GetOption(6).name</span></a>
                         </li>
-                    }
+                    }*@
 
                 </ul>
             </li>

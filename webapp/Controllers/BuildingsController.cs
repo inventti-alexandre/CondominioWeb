@@ -54,7 +54,7 @@ namespace SmartAdminMvc.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "buildingID,name,address,addressReference,country,state,city,apartmentQuantity,active,createDate,createUser,updateDate,updateUser")] Building building)
+        public ActionResult Create([Bind(Include = "buildingID,name,address,addressReference,country,state,city,district,apartmentQuantity,active,createDate,createUser,updateDate,updateUser")] Building building)
         {
             if (DataUtil.Validation())
             {
@@ -96,7 +96,7 @@ namespace SmartAdminMvc.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "buildingID,name,address,addressReference,country,state,city,apartmentQuantity,active,createDate,createUser,updateDate,updateUser")] Building building)
+        public ActionResult Edit([Bind(Include = "buildingID,name,address,addressReference,country,state,city,district,apartmentQuantity,active,createDate,createUser,updateDate,updateUser")] Building building)
         {
             if (DataUtil.Validation())
             {
