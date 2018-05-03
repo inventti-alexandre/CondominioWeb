@@ -21,19 +21,31 @@ namespace SmartAdminMvc.Controllers
             if (DataUtil.Validation())
             {
                 var apartment = db.Apartment.Include(a => a.section).Include(a=>a.section.building);
-                return View(apartment.ToList().Where(x=>x.sectionID == id).ToList());
+                var result = apartment.ToList().Where(x => x.sectionID == id).ToList();
+                string sectionName = "";
+                string buildingName = "";
+                if (result.Count > 0)
+                {
+                    sectionName = result[0].section.name;
+                    buildingName = result[0].section.building.name;
+                }
+                ViewBag.BuildingName = buildingName;
+                ViewBag.SectionName = sectionName;
+                ViewBag.SectionId = id;
+                return View(result);
             }
             else
                 return RedirectToAction("Login", "Home");
         }
 
        // GET: Apartments/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
             if (DataUtil.Validation())
             {
-                ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name");
-                return View();
+                Apartment apartment = new Apartment();
+                apartment.sectionID = id;
+                return View(apartment);
             }
             else
                 return RedirectToAction("Login", "Home");

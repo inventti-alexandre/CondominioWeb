@@ -118,7 +118,7 @@
                                         <td>
                                             @Html.ActionLink("Modificar", "Edit", new { id = item.buildingID }) |
                                             @Html.ActionLink("Eliminar", "Delete", new { id = item.buildingID }) |
-                                            @Html.ActionLink("Secciones", "Index", "Sections", new { id = item.buildingID }, null)
+                                            <a href="/Sections/Index/@item.buildingID">Secciones</a>
                                         </td>
                                     </tr>
                                     }

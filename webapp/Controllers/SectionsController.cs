@@ -18,19 +18,25 @@ namespace SmartAdminMvc.Controllers
             if (DataUtil.Validation())
             {
                 var section = db.Section.Include(a => a.building);
-                return View(section.ToList().Where(x=>x.buildingID==id).ToList());
+                var result = section.ToList().Where(x => x.buildingID == id).ToList();
+                string buildingName = "";
+                if (result.Count > 0)
+                    buildingName = result[0].building.name;                
+                ViewBag.BuildingName = buildingName;
+                return View(result);
             }
             else
                 return RedirectToAction("Login", "Home");
         }
               
         // GET: Sections/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
             if (DataUtil.Validation())
             {
-                ViewBag.buildingID = new SelectList(db.Building, "buildingID", "name");
-                return View();
+                Section section = new Section();
+                section.buildingID = id;
+                return View(section);
             }
             else
                 return RedirectToAction("Login", "Home");

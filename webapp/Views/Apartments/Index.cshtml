@@ -7,7 +7,7 @@
 <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
     <header>
         <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
-        <h2>Departamento</h2>
+        <h2>@ViewBag.BuildingName - @ViewBag.SectionName - Departamento</h2>
     </header>
     <div>
         <div class="jarviswidget-editbox">
@@ -16,7 +16,7 @@
             <fieldset>
                 <div class="row">
                     <div class="col-sm-4">
-                        @Html.ActionLink("Nuevo", "Create", null, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })
+                        @Html.ActionLink("Nuevo", "Create", new { id = ViewBag.SectionId }), new { @class = "btn", @style = "background-color:#1b1e24; color:white" })
                     </div>
                     <div class="col-sm-8">
                     </div>
@@ -32,12 +32,6 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.section.building.name)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.section.name)
-                                        </th>
-                                        <th>
                                             @Html.DisplayNameFor(model => model.name)
                                         </th>
                                         <th>
@@ -51,12 +45,6 @@
                                     {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.section.building.name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.section.name)
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.name)
                                         </td>
                                         <td>
@@ -65,7 +53,7 @@
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", new { id = item.apartmentID }) |
                                             @Html.ActionLink("Delete", "Delete", new { id = item.apartmentID }) |
-                                            @Html.ActionLink("Propietarios", "Index", "ApartmentUsers", new { id = item.apartmentID })
+                                            <a href="/ApartmentUsers/Index/@item.apartmentID">Propietarios</a>
                                         </td>
                                     </tr>
                                     }

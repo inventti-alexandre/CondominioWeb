@@ -15,12 +15,13 @@ namespace SmartAdminMvc.Controllers
         private BuildingContext db = new BuildingContext();
 
         // GET: ApartmentUsers
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             if (DataUtil.Validation())
             {
                 var apartmentUser = db.ApartmentUser.Include(a => a.apartment).Include(a => a.user);
-                return View(apartmentUser.ToList());
+                ViewBag.ApartmentId = id;
+                return View(apartmentUser.ToList().Where(x=>x.apartmentID == id));
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -42,11 +43,11 @@ namespace SmartAdminMvc.Controllers
         }
 
         // GET: ApartmentUsers/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.apartmentID = new SelectList(db.Apartment, "apartmentID", "name");
-            ViewBag.userID = new SelectList(db.User, "userID", "name");
-            return View();
+            ApartmentUser apartmentUser = new ApartmentUser();
+            apartmentUser.apartmentID = id;
+            return View(apartmentUser);
         }
 
         // POST: ApartmentUsers/Create
