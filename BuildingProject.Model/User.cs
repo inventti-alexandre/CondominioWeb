@@ -23,8 +23,7 @@ namespace BuildingProject.Model
         [Required(ErrorMessage = "Por favor ingresar {0}")]
         public string email { get; set; }
         [Display(Name = "DNI")]
-        [MaxLength(length: 10)]
-        [Required(ErrorMessage = "Por favor ingresar {0}")]
+        [MaxLength(length: 10)]        
         public string dni { get; set; }
         [Display(Name = "Número Telf.")]
         [MaxLength(length: 12)]
@@ -62,6 +61,10 @@ namespace BuildingProject.Model
         public string messageErrorEmail { get; set; }
         [NotMapped]
         public string messageWelcome { get; set; }
+        [NotMapped]
+        public int apartmentID { get; set; }
+        [NotMapped]
+        public bool principal { get; set; }
         public virtual ICollection<UserRole> userRoles { get; set; }
     }
 }

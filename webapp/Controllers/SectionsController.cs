@@ -23,6 +23,7 @@ namespace SmartAdminMvc.Controllers
                 if (result.Count > 0)
                     buildingName = result[0].building.name;                
                 ViewBag.BuildingName = buildingName;
+                ViewBag.BuildingID = id;
                 return View(result);
             }
             else
@@ -99,7 +100,7 @@ namespace SmartAdminMvc.Controllers
                 {
                     db.Entry(section).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { id = section.buildingID });
                 }
                 ViewBag.buildingID = new SelectList(db.Building, "buildingID", "name", section.buildingID);
                 return View(section);
@@ -107,42 +108,7 @@ namespace SmartAdminMvc.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
-
-        // GET: Sections/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Section section = db.Section.Find(id);
-                if (section == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(section);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
-        // POST: Sections/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (DataUtil.Validation())
-            {
-                Section section = db.Section.Find(id);
-                db.Section.Remove(section);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
+      
 
         protected override void Dispose(bool disposing)
         {

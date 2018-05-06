@@ -27,27 +27,17 @@ namespace SmartAdminMvc.Controllers
                 return RedirectToAction("Login", "Home");
         }
 
-        // GET: ApartmentUsers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApartmentUser apartmentUser = db.ApartmentUser.Find(id);
-            if (apartmentUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(apartmentUser);
-        }
-
         // GET: ApartmentUsers/Create
         public ActionResult Create(int id)
         {
-            ApartmentUser apartmentUser = new ApartmentUser();
-            apartmentUser.apartmentID = id;
-            return View(apartmentUser);
+            if (DataUtil.Validation())
+            {
+                User objUser = new User();
+                objUser.apartmentID = id;
+                return View(objUser);
+            }
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // POST: ApartmentUsers/Create
@@ -55,35 +45,53 @@ namespace SmartAdminMvc.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "apartmentUserID,apartmentID,userID")] ApartmentUser apartmentUser)
+        public ActionResult Create(User user)
         {
-            if (ModelState.IsValid)
+            if (DataUtil.Validation())
             {
-                db.ApartmentUser.Add(apartmentUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.User.Add(user);
+                    db.SaveChanges();
+                    UserRole objUserRole = new UserRole();
+                    objUserRole.userID = user.userID;
+                    objUserRole.roleID = 4;                
+                    db.UserRole.Add(objUserRole);
+                    db.SaveChanges();
+                    ApartmentUser objApartmentUser = new ApartmentUser();
+                    objApartmentUser.userID = user.userID;
+                    objApartmentUser.apartmentID = user.apartmentID;
+                    objApartmentUser.principal = user.principal;
+                    db.ApartmentUser.Add(objApartmentUser);
+                    db.SaveChanges();                
+                    return RedirectToAction("Index", new { id = user.apartmentID });
+                }
+                return View(user);
             }
-
-            ViewBag.apartmentID = new SelectList(db.Apartment, "apartmentID", "name", apartmentUser.apartmentID);
-            ViewBag.userID = new SelectList(db.User, "userID", "name", apartmentUser.userID);
-            return View(apartmentUser);
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // GET: ApartmentUsers/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (DataUtil.Validation())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }            
+                ApartmentUser apartmentUser = db.ApartmentUser.Include(u=>u.user).FirstOrDefault(u=>u.apartmentUserID==id);
+                apartmentUser.user.apartmentID = apartmentUser.apartmentID;
+                apartmentUser.user.principal = apartmentUser.principal;
+                if (apartmentUser == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(apartmentUser.user);
             }
-            ApartmentUser apartmentUser = db.ApartmentUser.Find(id);
-            if (apartmentUser == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.apartmentID = new SelectList(db.Apartment, "apartmentID", "name", apartmentUser.apartmentID);
-            ViewBag.userID = new SelectList(db.User, "userID", "name", apartmentUser.userID);
-            return View(apartmentUser);
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         // POST: ApartmentUsers/Edit/5
@@ -91,44 +99,28 @@ namespace SmartAdminMvc.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "apartmentUserID,apartmentID,userID")] ApartmentUser apartmentUser)
+        public ActionResult Edit( User user)
         {
-            if (ModelState.IsValid)
+            if (DataUtil.Validation())
             {
-                db.Entry(apartmentUser).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    BaseDataAccess<User> objBaseDatosAccess= new BaseDataAccess<User>();
+                    objBaseDatosAccess.Update(user);
+                    ApartmentUser objApartmentUser = new ApartmentUser();
+                    objApartmentUser.apartmentID = user.apartmentID;
+                    objApartmentUser.userID = user.userID;
+                    objApartmentUser.principal = user.principal;                    
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { id = user.apartmentID });
+                }
+                return View(user);
             }
-            ViewBag.apartmentID = new SelectList(db.Apartment, "apartmentID", "name", apartmentUser.apartmentID);
-            ViewBag.userID = new SelectList(db.User, "userID", "name", apartmentUser.userID);
-            return View(apartmentUser);
+            else
+                return RedirectToAction("Login", "Home");
         }
-
-        // GET: ApartmentUsers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApartmentUser apartmentUser = db.ApartmentUser.Find(id);
-            if (apartmentUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(apartmentUser);
-        }
-
-        // POST: ApartmentUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ApartmentUser apartmentUser = db.ApartmentUser.Find(id);
-            db.ApartmentUser.Remove(apartmentUser);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+      
 
         protected override void Dispose(bool disposing)
         {

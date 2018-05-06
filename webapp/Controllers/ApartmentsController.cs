@@ -83,13 +83,15 @@ namespace SmartAdminMvc.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Apartment apartment = db.Apartment.Find(id);
+                Apartment apartment = db.Apartment.Include(a=>a.section).FirstOrDefault(a=>a.apartmentID==id);
                 
                 if (apartment == null)
                 {
                     return HttpNotFound();
                 }
-                ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name", apartment.sectionID);
+                //ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name", apartment.sectionID);
+
+                ViewBag.SectionName = apartment.section.name;
                 return View(apartment);
             }
             else
@@ -109,9 +111,10 @@ namespace SmartAdminMvc.Controllers
                 {
                     db.Entry(apartment).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { id = apartment.sectionID });
                 }
-                ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name", apartment.sectionID);
+                //ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name", apartment.sectionID);
+                ViewBag.BuildingName = apartment.section.name;
                 return View(apartment);
             }
             else

@@ -61,13 +61,13 @@
                                             @Html.DisplayNameFor(model => model.createDate)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.createUser)
+                                            @Html.DisplayNameFor(model => model.createUserStr)
                                         </th>
                                         <th>
                                             @Html.DisplayNameFor(model => model.updateDate)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.updateUser)
+                                            @Html.DisplayNameFor(model => model.updateUserStr)
                                         </th>
                                         <th></th>
                                     </tr>
@@ -107,17 +107,16 @@
                                             @Html.DisplayFor(modelItem => item.createDate)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.createUser)
+                                            @Html.DisplayFor(modelItem => item.createUserStr)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.updateDate)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.updateUser)
+                                            @Html.DisplayFor(modelItem => item.createUserStr)
                                         </td>
                                         <td>
                                             @Html.ActionLink("Modificar", "Edit", new { id = item.buildingID }) |
-                                            @Html.ActionLink("Eliminar", "Delete", new { id = item.buildingID }) |
                                             <a href="/Sections/Index/@item.buildingID">Secciones</a>
                                         </td>
                                     </tr>

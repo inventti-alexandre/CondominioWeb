@@ -15,7 +15,7 @@
             <fieldset>
                 <div class="row">
                     <div class="col-sm-4">
-                        @Html.ActionLink("Nuevo", "Create", null, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })
+                        @Html.ActionLink("Nuevo", "Create", new { @id = @ViewBag.BuildingID }, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })
                     </div>
                     <div class="col-sm-8">
                     </div>
@@ -40,13 +40,13 @@
                                             @Html.DisplayNameFor(model => model.createDate)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.createUser)
+                                            @Html.DisplayNameFor(model => model.createUserStr)
                                         </th>
                                         <th>
                                             @Html.DisplayNameFor(model => model.updateDate)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.updateUser)
+                                            @Html.DisplayNameFor(model => model.updateUserStr)
                                         </th>
                                         <th></th>
                                     </tr>
@@ -65,17 +65,16 @@
                                                 @Html.DisplayFor(modelItem => item.createDate)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.createUser)
+                                                @Html.DisplayFor(modelItem => item.createUserStr)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.updateDate)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.updateUser)
+                                                @Html.DisplayFor(modelItem => item.updateUserStr)
                                             </td>
                                             <td>
                                                 @Html.ActionLink("Modificar", "Edit", new { id = item.sectionID }) |
-                                                @Html.ActionLink("Eliminar", "Delete", new { id = item.sectionID }) |
                                                 @Html.ActionLink("Departamentos", "Index", "Apartments", new { id = item.sectionID}, null)
                                             </td>
                                         </tr>
