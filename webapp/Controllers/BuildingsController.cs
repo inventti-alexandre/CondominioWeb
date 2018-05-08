@@ -19,32 +19,12 @@ namespace SmartAdminMvc.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
-
-        // GET: Buildings/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Building building = db.Building.Find(id);
-                if (building == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(building);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
+                
         // GET: Buildings/Create
         public ActionResult Create()
         {
             if (DataUtil.Validation())
-                return View();
+                return PartialView();
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -85,7 +65,7 @@ namespace SmartAdminMvc.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(building);
+                return PartialView(building);
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -111,43 +91,7 @@ namespace SmartAdminMvc.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
-
-        // GET: Buildings/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Building building = db.Building.Find(id);
-                if (building == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(building);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
-        // POST: Buildings/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (DataUtil.Validation())
-            {
-                Building building = db.Building.Find(id);
-                db.Building.Remove(building);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

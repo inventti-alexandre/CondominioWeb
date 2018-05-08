@@ -16,7 +16,8 @@
             <fieldset>
                 <div class="row">
                     <div class="col-sm-4">
-                        @Html.ActionLink("Nuevo", "Create", new { id = ViewBag.SectionId }, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })
+                        @*@Html.ActionLink("Nuevo", "Create", new { id = ViewBag.SectionId }, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })*@
+                        <input class="btn" style="background-color:#1b1e24; color:white" type="button" value="Nuevo" onclick="Creates(@ViewBag.SectionId)">
                     </div>
                     <div class="col-sm-8">
                     </div>
@@ -43,18 +44,19 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.active)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Modificar", "Edit", new { id = item.apartmentID }) |
-                                            <a href="/ApartmentUsers/Index/@item.apartmentID">Propietarios</a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.active)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Modificar", "Edit", new { id = item.apartmentID })*@
+                                                <a style="cursor:pointer" onclick="Edits(@item.apartmentID)">Modificar</a>|
+                                                <a href="/ApartmentUsers/Index/@item.apartmentID">Propietarios</a>
+                                            </td>
+                                        </tr>
                                     }
 
                                 </tbody>
@@ -66,8 +68,27 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModalCreate" tabindex="-1" role="dialog" data-url='@Url.Action("Create","Apartments")'>
+</div>
+<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" data-url='@Url.Action("Edit","Apartments")'>
+</div>
 @section pagespecific {
     <script type="text/javascript">
+
+        function Creates(itemId) {
+            var url = $('#myModalCreate').data('url') + "/" + itemId;
+            $.get(url, function (data) {
+                $('#myModalCreate').html(data);
+                $('#myModalCreate').modal('show');
+            })
+        }
+        function Edits(itemId) {
+            var url = $('#myModalEdit').data('url') + "/" + itemId;
+            $.get(url, function (data) {
+                $('#myModalEdit').html(data);
+                $('#myModalEdit').modal('show');
+            })
+        }
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 

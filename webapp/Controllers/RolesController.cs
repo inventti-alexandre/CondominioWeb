@@ -21,26 +21,11 @@ namespace BuildingProject.Controllers
                 return RedirectToAction("Login", "Home");
         }
 
-        // GET: Roles/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Role role = db.Role.Find(id);
-            if (role == null)
-            {
-                return HttpNotFound();
-            }
-            return View(role);
-        }
-
         // GET: Roles/Create
         public ActionResult Create()
         {
             if (DataUtil.Validation())
-                return View();
+                return PartialView();
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -81,7 +66,7 @@ namespace BuildingProject.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(role);
+                return PartialView(role);
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -107,43 +92,7 @@ namespace BuildingProject.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
-
-        // GET: Roles/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Role role = db.Role.Find(id);
-                if (role == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(role);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
-        // POST: Roles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (DataUtil.Validation())
-            {
-                Role role = db.Role.Find(id);
-                db.Role.Remove(role);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

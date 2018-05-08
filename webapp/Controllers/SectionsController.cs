@@ -37,7 +37,7 @@ namespace SmartAdminMvc.Controllers
             {
                 Section section = new Section();
                 section.buildingID = id;
-                return View(section);
+                return PartialView(section);
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -81,7 +81,7 @@ namespace SmartAdminMvc.Controllers
                     return HttpNotFound();
                 }
                 ViewBag.buildingID = new SelectList(db.Building, "buildingID", "name", section.buildingID);
-                return View(section);
+                return PartialView(section);
             }
             else
                 return RedirectToAction("Login", "Home");

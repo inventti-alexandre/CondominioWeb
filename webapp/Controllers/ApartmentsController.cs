@@ -45,7 +45,7 @@ namespace SmartAdminMvc.Controllers
             {
                 Apartment apartment = new Apartment();
                 apartment.sectionID = id;
-                return View(apartment);
+                return PartialView(apartment);
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -92,7 +92,7 @@ namespace SmartAdminMvc.Controllers
                 //ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name", apartment.sectionID);
 
                 ViewBag.SectionName = apartment.section.name;
-                return View(apartment);
+                return PartialView(apartment);
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -120,42 +120,7 @@ namespace SmartAdminMvc.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
-
-        // GET: Apartments/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Apartment apartment = db.Apartment.Find(id);
-                if (apartment == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(apartment);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
-        // POST: Apartments/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (DataUtil.Validation())
-            {
-                Apartment apartment = db.Apartment.Find(id);
-                db.Apartment.Remove(apartment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
+              
 
         protected override void Dispose(bool disposing)
         {

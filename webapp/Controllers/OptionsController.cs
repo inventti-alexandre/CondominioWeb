@@ -20,31 +20,11 @@ namespace BuildingProject.Controllers
                 return RedirectToAction("Login", "Home");
         }
 
-        // GET: Options/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Option option = db.Option.Find(id);
-                if (option == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(option);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
         // GET: Options/Create
         public ActionResult Create()
         {
             if (DataUtil.Validation())
-                return View();
+                return PartialView();
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -85,7 +65,7 @@ namespace BuildingProject.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(option);
+                return PartialView(option);
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -111,43 +91,7 @@ namespace BuildingProject.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
-
-        // GET: Options/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Option option = db.Option.Find(id);
-                if (option == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(option);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
-        // POST: Options/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (DataUtil.Validation())
-            {
-                Option option = db.Option.Find(id);
-                db.Option.Remove(option);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
