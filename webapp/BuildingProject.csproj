@@ -664,7 +664,6 @@
     <Content Include="Views\Account\Lock.cshtml" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.map" />
     <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Scripts\plugin\bootstrap-tags\dist\bootstrap-tagsinput.min.js.map" />

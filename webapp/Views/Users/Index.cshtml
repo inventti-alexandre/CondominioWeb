@@ -8,19 +8,21 @@
         <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
         <h2>Usuarios</h2>
     </header>
-    <div>
+    <div style="overflow-x:auto">
         <div class="jarviswidget-editbox">
         </div>
-        <div class="widget-body">
+        <div class="widget-body" >
             <fieldset>
                 <div class="row">
                     <div class="col-sm-4">
-                        @Html.ActionLink("Nuevo", "Create", null, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })
+                        @*@Html.ActionLink("Nuevo", "Create", null, new { @class = "btn", @style = "background-color:#1b1e24; color:white" })*@
+                        <input class="btn" style="background-color:#1b1e24; color:white" type="button" value="Nuevo" onclick="Creates()">
                     </div>
                     <div class="col-sm-8">
                     </div>
                 </div>
                 <br />
+
                 <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
                     <div>
                         <div class="jarviswidget-editbox">
@@ -54,18 +56,6 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.active)
                                         </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.createDate)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.createUser)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.updateDate)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.updateUser)
-                                        </th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -98,20 +88,7 @@
                                                 @Html.DisplayFor(modelItem => item.active)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.createDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.createUser)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.updateDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.updateUser)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Modificar", "Edit", new { id = item.userID })|
-                                                @Html.ActionLink("Eliminar", "Delete", new { id = item.userID })|
+                                                <a style="cursor:pointer" onclick="Edits(@item.userID)">Modificar</a>|                                                
                                                 <a href="/UserRoles/Index/@item.userID">Roles</a>
                                             </td>
                                         </tr>
@@ -126,8 +103,29 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModalCreate" tabindex="-1" role="dialog" data-url='@Url.Action("Create","Users")'>
+</div>
+<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" data-url='@Url.Action("Edit","Users")'>
+</div>
+
 @section pagespecific {
     <script type="text/javascript">
+
+        function Creates() {
+            var url = $('#myModalCreate').data('url');
+            $.get(url, function (data) {
+                $('#myModalCreate').html(data);
+                $('#myModalCreate').modal('show');
+            })
+        }
+        function Edits(itemId) {
+            var url = $('#myModalEdit').data('url') + "/" + itemId;
+            $.get(url, function (data) {
+                $('#myModalEdit').html(data);
+                $('#myModalEdit').modal('show');
+            })
+        }    
+
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 

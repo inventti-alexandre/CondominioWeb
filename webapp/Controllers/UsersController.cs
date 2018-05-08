@@ -25,7 +25,7 @@ namespace BuildingProject.Controllers
         public ActionResult Create()
         {
             if (DataUtil.Validation())
-                return View();
+                return PartialView();
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -81,7 +81,7 @@ namespace BuildingProject.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(user);
+                return PartialView(user);
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -116,42 +116,7 @@ namespace BuildingProject.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
-
-        // GET: /User/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (DataUtil.Validation())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                User user = db.User.Find(id);
-                if (user == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(user);
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
-
-        // POST: /User/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (DataUtil.Validation())
-            {
-                User user = db.User.Find(id);
-                db.User.Remove(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-                return RedirectToAction("Login", "Home");
-        }
+              
 
         protected override void Dispose(bool disposing)
         {
