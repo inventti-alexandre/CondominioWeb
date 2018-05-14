@@ -17,6 +17,7 @@ namespace SmartAdminMvc.Controllers
         // GET: ApartmentUsers
         public ActionResult Index(int id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 var apartmentUser = db.ApartmentUser.Include(a => a.apartment).Include(a => a.user);
@@ -25,11 +26,24 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "ApartmentUsers";
+                objError.option = "Index";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: ApartmentUsers/Create
         public ActionResult Create(int id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 User objUser = new User();
@@ -38,6 +52,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "ApartmentUsers";
+                objError.option = "Create-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: ApartmentUsers/Create
@@ -47,6 +73,8 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -70,28 +98,54 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "ApartmentUsers";
+                objError.option = "Create-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: ApartmentUsers/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (DataUtil.Validation())
+            try
             {
-                if (id == null)
+                if (DataUtil.Validation())
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }            
-                ApartmentUser apartmentUser = db.ApartmentUser.Include(u=>u.user).FirstOrDefault(u=>u.apartmentUserID==id);
-                apartmentUser.user.apartmentID = apartmentUser.apartmentID;
-                apartmentUser.user.principal = apartmentUser.principal;
-                if (apartmentUser == null)
-                {
-                    return HttpNotFound();
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    ApartmentUser apartmentUser = db.ApartmentUser.Include(u => u.user).FirstOrDefault(u => u.apartmentUserID == id);
+                    apartmentUser.user.apartmentID = apartmentUser.apartmentID;
+                    apartmentUser.user.principal = apartmentUser.principal;
+                    if (apartmentUser == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(apartmentUser.user);
                 }
-                return View(apartmentUser.user);
+                else
+                    return RedirectToAction("Login", "Home");
             }
-            else
-                return RedirectToAction("Login", "Home");
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "ApartmentUsers";
+                objError.option = "Edit-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: ApartmentUsers/Edit/5
@@ -101,24 +155,38 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit( User user)
         {
-            if (DataUtil.Validation())
+            try
             {
-                if (ModelState.IsValid)
+                if (DataUtil.Validation())
                 {
-                    BaseDataAccess<User> objBaseDatosAccess= new BaseDataAccess<User>();
-                    objBaseDatosAccess.Update(user);
-                    ApartmentUser objApartmentUser = new ApartmentUser();
-                    objApartmentUser.apartmentID = user.apartmentID;
-                    objApartmentUser.userID = user.userID;
-                    objApartmentUser.principal = user.principal;                    
-                    db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index", new { id = user.apartmentID });
+                    if (ModelState.IsValid)
+                    {
+                        BaseDataAccess<User> objBaseDatosAccess = new BaseDataAccess<User>();
+                        objBaseDatosAccess.Update(user);
+                        ApartmentUser objApartmentUser = new ApartmentUser();
+                        objApartmentUser.apartmentID = user.apartmentID;
+                        objApartmentUser.userID = user.userID;
+                        objApartmentUser.principal = user.principal;
+                        db.Entry(user).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index", new { id = user.apartmentID });
+                    }
+                    return View(user);
                 }
-                return View(user);
+                else
+                    return RedirectToAction("Login", "Home");
             }
-            else
-                return RedirectToAction("Login", "Home");
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "ApartmentUsers";
+                objError.option = "Edit-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
       
 

@@ -702,6 +702,7 @@
     <Content Include="Views\ApartmentUsers\Details.cshtml" />
     <Content Include="Views\ApartmentUsers\Edit.cshtml" />
     <Content Include="Views\ApartmentUsers\Index.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

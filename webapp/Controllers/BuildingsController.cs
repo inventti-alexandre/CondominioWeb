@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -14,19 +15,47 @@ namespace SmartAdminMvc.Controllers
         // GET: Buildings
         public ActionResult Index()
         {
+            try
+            { 
             if (DataUtil.Validation())
                 return View(db.Building.ToList());
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Buildings";
+                objError.option = "Index";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
                 
         // GET: Buildings/Create
         public ActionResult Create()
         {
+            try
+            { 
             if (DataUtil.Validation())
                 return PartialView();
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Buildings";
+                objError.option = "Create-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Buildings/Create
@@ -36,24 +65,39 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "buildingID,name,address,addressReference,country,state,city,district,apartmentQuantity,active,createDate,createUser,updateDate,updateUser")] Building building)
         {
-            if (DataUtil.Validation())
+            try
             {
-                if (ModelState.IsValid)
+                if (DataUtil.Validation())
                 {
-                    db.Building.Add(building);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                    if (ModelState.IsValid)
+                    {
+                        db.Building.Add(building);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
 
-                return View(building);
+                    return View(building);
+                }
+                else
+                    return RedirectToAction("Login", "Home");
             }
-            else
-                return RedirectToAction("Login", "Home");
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Buildings";
+                objError.option = "Create-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: Buildings/Edit/5
         public ActionResult Edit(int? id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 if (id == null)
@@ -69,6 +113,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Buildings";
+                objError.option = "Edit-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Buildings/Edit/5
@@ -78,6 +134,8 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "buildingID,name,address,addressReference,country,state,city,district,apartmentQuantity,active,createDate,createUser,updateDate,updateUser")] Building building)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -90,6 +148,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Buildings";
+                objError.option = "Edit-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
         
         protected override void Dispose(bool disposing)

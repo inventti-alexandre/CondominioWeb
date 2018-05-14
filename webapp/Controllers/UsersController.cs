@@ -15,19 +15,47 @@ namespace BuildingProject.Controllers
         // GET: /User/
         public ActionResult Index()
         {
+            try
+            { 
             if (DataUtil.Validation())
                 return View(db.User.ToList().OrderBy(x => x.name));
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Users";
+                objError.option = "Index";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }        
 
         // GET: /User/Create
         public ActionResult Create()
         {
+            try
+            { 
             if (DataUtil.Validation())
                 return PartialView();
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Users";
+                objError.option = "Create-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: /User/Create
@@ -37,6 +65,8 @@ namespace BuildingProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "userID,name,lastname,username,password,active,email,dni,phonenumber,createDate,createUser,updateDate,updateUser")] User user)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -65,11 +95,24 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Users";
+                objError.option = "Create-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: /User/Edit/5
         public ActionResult Edit(int? id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 if (id == null)
@@ -85,6 +128,18 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Users";
+                objError.option = "Edit-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: /User/Edit/5
@@ -94,6 +149,8 @@ namespace BuildingProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "userID,name,lastname,username,password,active,email,dni,phonenumber,createDate,createUser,updateDate,updateUser")] User user)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -115,6 +172,18 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Users";
+                objError.option = "Edit-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
               
 

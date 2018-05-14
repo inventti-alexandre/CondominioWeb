@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -15,19 +16,46 @@ namespace BuildingProject.Controllers
         // GET: Roles
         public ActionResult Index()
         {
+            try { 
             if (DataUtil.Validation())
                 return View(db.Role.ToList().OrderBy(x => x.name));
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Roles";
+                objError.option = "Index";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: Roles/Create
         public ActionResult Create()
         {
+            try
+            { 
             if (DataUtil.Validation())
                 return PartialView();
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Roles";
+                objError.option = "Create-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Roles/Create
@@ -37,6 +65,8 @@ namespace BuildingProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "roleID,name,active,createDate,createUser,updateDate,updateUser,selected")] Role role)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -50,11 +80,25 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Roles";
+                objError.option = "Create-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: Roles/Edit/5
         public ActionResult Edit(int? id)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (id == null)
@@ -70,6 +114,18 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Roles";
+                objError.option = "Edit-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Roles/Edit/5
@@ -79,6 +135,8 @@ namespace BuildingProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "roleID,name,active,createDate,createUser,updateDate,updateUser,selected")] Role role)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -91,6 +149,18 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Roles";
+                objError.option = "Edit-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
         
         protected override void Dispose(bool disposing)

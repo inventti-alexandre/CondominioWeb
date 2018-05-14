@@ -18,29 +18,44 @@ namespace SmartAdminMvc.Controllers
         // GET: Apartments
         public ActionResult Index(int id)
         {
-            if (DataUtil.Validation())
+            try
             {
-                var apartment = db.Apartment.Include(a => a.section).Include(a=>a.section.building);
-                var result = apartment.ToList().Where(x => x.sectionID == id).ToList();
-                string sectionName = "";
-                string buildingName = "";
-                if (result.Count > 0)
+                if (DataUtil.Validation())
                 {
-                    sectionName = result[0].section.name;
-                    buildingName = result[0].section.building.name;
+                    var apartment = db.Apartment.Include(a => a.section).Include(a => a.section.building);
+                    var result = apartment.ToList().Where(x => x.sectionID == id).ToList();
+                    string sectionName = "";
+                    string buildingName = "";
+                    if (result.Count > 0)
+                    {
+                        sectionName = result[0].section.name;
+                        buildingName = result[0].section.building.name;
+                    }
+                    ViewBag.BuildingName = buildingName;
+                    ViewBag.SectionName = sectionName;
+                    ViewBag.SectionId = id;
+                    return View(result);
                 }
-                ViewBag.BuildingName = buildingName;
-                ViewBag.SectionName = sectionName;
-                ViewBag.SectionId = id;
-                return View(result);
+                else
+                    return RedirectToAction("Login", "Home");
             }
-            else
-                return RedirectToAction("Login", "Home");
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Apartments";
+                objError.option = "Index";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
        // GET: Apartments/Create
         public ActionResult Create(int id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 Apartment apartment = new Apartment();
@@ -49,6 +64,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Apartments";
+                objError.option = "Create-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Apartments/Create
@@ -58,6 +85,7 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "apartmentID,sectionID,name,active,createDate,createUser,updateDate,updateUser")] Apartment apartment)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -72,11 +100,24 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Apartments";
+                objError.option = "Create-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: Apartments/Edit/5
         public ActionResult Edit(int? id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 if (id == null)
@@ -96,6 +137,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Apartments";
+                objError.option = "Edit-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Apartments/Edit/5
@@ -105,21 +158,35 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "apartmentID,sectionID,name,active,createDate,createUser,updateDate,updateUser")] Apartment apartment)
         {
-            if (DataUtil.Validation())
+            try
             {
-                if (ModelState.IsValid)
+                if (DataUtil.Validation())
                 {
-                    db.Entry(apartment).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index", new { id = apartment.sectionID });
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(apartment).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index", new { id = apartment.sectionID });
+                    }
+                    //ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name", apartment.sectionID);
+                    ViewBag.BuildingName = apartment.section.name;
+                    return View(apartment);
                 }
-                //ViewBag.sectionID = new SelectList(db.Section, "sectionID", "name", apartment.sectionID);
-                ViewBag.BuildingName = apartment.section.name;
-                return View(apartment);
+                else
+                    return RedirectToAction("Login", "Home");            
             }
-            else
-                return RedirectToAction("Login", "Home");
-        }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Apartments";
+                objError.option = "Edit-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+    }
+}
               
 
         protected override void Dispose(bool disposing)

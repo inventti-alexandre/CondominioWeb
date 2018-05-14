@@ -15,6 +15,8 @@ namespace SmartAdminMvc.Controllers
         // GET: Sections
         public ActionResult Index(int id)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 var section = db.Section.Include(a => a.building);
@@ -28,11 +30,25 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Sections";
+                objError.option = "Index";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
               
         // GET: Sections/Create
         public ActionResult Create(int id)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 Section section = new Section();
@@ -41,6 +57,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Sections";
+                objError.option = "Create-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Sections/Create
@@ -50,6 +78,7 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "sectionID,buildingID,name,active,createDate,createUser,updateDate,updateUser")] Section section)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -64,11 +93,24 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Sections";
+                objError.option = "Create-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: Sections/Edit/5
         public ActionResult Edit(int? id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 if (id == null)
@@ -85,6 +127,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Sections";
+                objError.option = "Edit-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // POST: Sections/Edit/5
@@ -94,6 +148,7 @@ namespace SmartAdminMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "sectionID,buildingID,name,active,createDate,createUser,updateDate,updateUser")] Section section)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 if (ModelState.IsValid)
@@ -107,6 +162,18 @@ namespace SmartAdminMvc.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Sections";
+                objError.option = "Edit-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
       
 

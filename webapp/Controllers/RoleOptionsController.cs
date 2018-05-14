@@ -17,6 +17,8 @@ namespace BuildingProject.Controllers
         // GET: RoleOptions
         public ActionResult Index(int? id)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (id == null)
@@ -30,11 +32,25 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "RoleOptions";
+                objError.option = "Index-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public ActionResult Index(RoleOptionView objRoleOptionView)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 RoleOptionView objRoleOptionView2 = new RoleOptionView();
@@ -78,11 +94,24 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "RoleOptions";
+                objError.option = "Index-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
-        //[HttpPost]
+        
         public ActionResult Delete(int id)
         {
+            try { 
             if (DataUtil.Validation())
             {
                 var roleOption = db.RoleOption.Find(id);
@@ -92,6 +121,18 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "RoleOptions";
+                objError.option = "Delete";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

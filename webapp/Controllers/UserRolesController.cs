@@ -17,6 +17,8 @@ namespace BuildingProject.Controllers
         // GET: UserRoles
         public ActionResult Index(int? id)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 if (id == null)
@@ -30,11 +32,25 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "UserRoles";
+                objError.option = "Index-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public ActionResult Index(UserRoleView objUserRoleView)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 UserRoleView objUserRoleView2 = new UserRoleView();
@@ -76,11 +92,25 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "UserRoles";
+                objError.option = "Index-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         public ActionResult Delete(int id)
         {
+            try
+            { 
             if (DataUtil.Validation())
             {
                 var userRole = db.UserRole.Find(id);
@@ -90,6 +120,18 @@ namespace BuildingProject.Controllers
             }
             else
                 return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "UserRoles";
+                objError.option = "Delete";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
         }       
     }
 }
