@@ -26,6 +26,9 @@ namespace BuildingProject.DataAccess
         public virtual DbSet<Section> Section { get; set; }
         public virtual DbSet<Apartment> Apartment { get; set; }
         public virtual DbSet<ApartmentUser> ApartmentUser { get; set; }
+        public virtual DbSet<Error> Error { get; set; }
+        public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<PostCategory> PostCategory { get; set; }
 
     }
 }
