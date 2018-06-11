@@ -9,7 +9,7 @@ namespace BuildingProject.DataAccess
         public BuildingContext():base("BuildingProjectConnectionString")
         {
             Configuration.ProxyCreationEnabled = false;
-            Database.SetInitializer(new SeedData());
+            //Database.SetInitializer(new SeedData());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BuildingContext>());
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
