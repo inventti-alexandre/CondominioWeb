@@ -1,9 +1,13 @@
 ﻿using LightInject;
 using System.Reflection;
+using Microsoft.Owin;
+using Owin;
 
-namespace BuildingProject
+[assembly: OwinStartup(typeof(SmartAdminMvc.App_Start.Startup))]
+
+namespace SmartAdminMvc.App_Start
 {
-    public partial class Startup
+    public class Startup
     {
         public void ConfigInjector()
         {
@@ -13,6 +17,11 @@ namespace BuildingProject
             container.RegisterAssembly("BuildingProject.DataAccessl*.dll");
             container.RegisterControllers();
             container.EnableMvc();
+        }
+
+        public void Configuration(IAppBuilder app)
+        {
+            app.MapSignalR();
         }
     }
 }

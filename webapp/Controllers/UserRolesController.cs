@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using BuildingProject.DataAccess;
 using BuildingProject.Model;

@@ -1,4 +1,4 @@
-namespace BuildingProject
+﻿namespace BuildingProject
 {
     public static class StringExtensions
     {
