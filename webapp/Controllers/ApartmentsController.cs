@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using BuildingProject.DataAccess;
 using BuildingProject.Model;
 
-namespace SmartAdminMvc.Controllers
+namespace BuildingProject.Controllers
 {
     public class ApartmentsController : Controller
     {
@@ -90,6 +90,8 @@ namespace SmartAdminMvc.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    apartment.createDate = DateTime.Now;
+                    apartment.createUser = Helper.GetCurrentUser().userID;
                     db.Apartment.Add(apartment);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -164,6 +166,8 @@ namespace SmartAdminMvc.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        apartment.updateDate = DateTime.Now;
+                        apartment.updateUser = Helper.GetCurrentUser().userID;
                         db.Entry(apartment).State = EntityState.Modified;
                         db.SaveChanges();
                         return RedirectToAction("Index", new { id = apartment.sectionID });

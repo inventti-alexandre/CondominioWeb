@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using BuildingProject.DataAccess;
 using BuildingProject.Model;
 
-namespace SmartAdminMvc.Controllers
+namespace BuildingProject.Controllers
 {
     public class PostCategoriesController : Controller
     {
@@ -72,6 +72,8 @@ namespace SmartAdminMvc.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        postCategory.createDate = DateTime.Now;
+                        postCategory.createUser = Helper.GetCurrentUser().userID;
                         db.PostCategory.Add(postCategory);
                         db.SaveChanges();
                         return RedirectToAction("Index");
@@ -140,6 +142,8 @@ namespace SmartAdminMvc.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        postCategory.updateDate = DateTime.Now;
+                        postCategory.updateUser = Helper.GetCurrentUser().userID;
                         db.Entry(postCategory).State = EntityState.Modified;
                         db.SaveChanges();
                         return RedirectToAction("Index");

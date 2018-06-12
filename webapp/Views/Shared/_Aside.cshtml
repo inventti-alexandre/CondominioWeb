@@ -34,6 +34,10 @@
                     }
 
                 </ul>
+                @if (option.ValidateOption(DataUtil.GetUser().userID, 8))
+                {
+                    <a href="@Url.Action("profile", "Users")" title="@option.GetOption(8).name"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">@option.GetOption(8).name</span></a>
+                }
             </li>
             @if (option.ValidateOption(DataUtil.GetUser().userID, 7))
             {

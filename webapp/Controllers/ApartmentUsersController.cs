@@ -8,7 +8,7 @@ using BuildingProject.DataAccess;
 using BuildingProject.Model;
 using BuildingProject.ModelView;
 
-namespace SmartAdminMvc.Controllers
+namespace BuildingProject.Controllers
 {
     public class ApartmentUsersController : Controller
     {

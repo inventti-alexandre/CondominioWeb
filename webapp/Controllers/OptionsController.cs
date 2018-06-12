@@ -70,6 +70,8 @@ namespace BuildingProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    option.createUser = Helper.GetCurrentUser().userID;
+                    option.createDate = DateTime.Now;
                     db.Option.Add(option);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -139,6 +141,8 @@ namespace BuildingProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    option.updateDate = DateTime.Now;
+                    option.updateUser = Helper.GetCurrentUser().userID;
                     db.Entry(option).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using BuildingProject.DataAccess;
 using BuildingProject.Model;
 
-namespace SmartAdminMvc.Controllers
+namespace BuildingProject.Controllers
 {
     public class PostsController : Controller
     {

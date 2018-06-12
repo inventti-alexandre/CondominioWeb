@@ -1,13 +1,10 @@
 ﻿using LightInject;
 using System.Reflection;
-using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(SmartAdminMvc.App_Start.Startup))]
-
-namespace SmartAdminMvc.App_Start
+namespace BuildingProject.App_Start
 {
-    public class Startup
+    public partial class Startup
     {
         public void ConfigInjector()
         {

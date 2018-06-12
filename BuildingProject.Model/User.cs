@@ -65,6 +65,8 @@ namespace BuildingProject.Model
         public int apartmentID { get; set; }
         [NotMapped]
         public bool principal { get; set; }
+        [NotMapped]
+        public string imageURL { get; set; }
         public virtual ICollection<UserRole> userRoles { get; set; }
     }
 }

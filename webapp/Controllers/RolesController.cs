@@ -71,6 +71,8 @@ namespace BuildingProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    role.createDate = DateTime.Now;
+                    role.createUser = Helper.GetCurrentUser().userID;
                     db.Role.Add(role);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -141,6 +143,8 @@ namespace BuildingProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    role.updateDate = DateTime.Now;
+                    role.updateUser = Helper.GetCurrentUser().userID;
                     db.Entry(role).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 
-namespace SmartAdminMvc.Hubs
+namespace BuildingProject.Hubs
 {
     public class ChatHub : Hub
     {

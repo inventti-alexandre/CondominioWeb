@@ -6,7 +6,7 @@ using BuildingProject.Model;
 using BuildingProject.DataAccess;
 using System;
 
-namespace SmartAdminMvc.Controllers
+namespace BuildingProject.Controllers
 {
     public class SectionsController : Controller
     {
@@ -83,6 +83,8 @@ namespace SmartAdminMvc.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    section.createDate = DateTime.Now;
+                    section.createUser = Helper.GetCurrentUser().userID;
                     db.Section.Add(section);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -153,6 +155,8 @@ namespace SmartAdminMvc.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    section.updateUser = Helper.GetCurrentUser().userID;
+                    section.updateDate = DateTime.Now;
                     db.Entry(section).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index", new { id = section.buildingID });

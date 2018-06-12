@@ -5,12 +5,125 @@ using System.Web.Mvc;
 using BuildingProject.Model;
 using BuildingProject.DataAccess;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using ImageResizer;
 
 namespace BuildingProject.Controllers
 {
     public class UsersController : Controller
     {
         private BuildingContext db = new BuildingContext();
+
+
+        public ActionResult Profile()
+        {
+            try
+            {
+                if (DataUtil.Validation())
+                {
+                    User user = db.User.Find(Helper.GetCurrentUser().userID);
+
+                    string path = System.Configuration.ConfigurationManager.AppSettings["userImgURL"] + user.userID.ToString() + ".jpg";
+                    if (!System.IO.File.Exists(@path))
+                    {
+                        path = System.Configuration.ConfigurationManager.AppSettings["userImgURLBase"];
+                    }
+                    user.imageURL = path;
+
+                    if (user == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(user);
+                }
+                else
+                    return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Users";
+                objError.option = "Profile-1";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Profile([Bind(Include = "userID,categoryUserID,name,lastname,username,password,active,email,dni,phonenumber,createDate,createUser,updateDate,updateUser")] User user, HttpPostedFileBase postedFile)
+        {
+            try
+            {
+                if (DataUtil.Validation())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var objUserEmail = db.User.FirstOrDefault(u => u.email == user.email && u.userID != user.userID);
+                        if (objUserEmail != null)
+                        {
+                            user.messageErrorEmail = "El email ingresado ya existe!.";
+                        }
+                        else
+                        {
+                            user.updateDate = DateTime.Now;
+                            user.updateUser = Helper.GetCurrentUser().userID;
+                            user.name = user.name.ToUpper();
+                            user.lastname = user.lastname.ToUpper();
+
+                            user.imageURL = System.Configuration.ConfigurationManager.AppSettings["userImgURL"] + user.userID.ToString() + ".jpg";
+                            db.Entry(user).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                            if (postedFile != null)
+                            {
+                                var versions = new Dictionary<string, string>();
+                                string path = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["userImgURLFinal"]);
+                                if (!Directory.Exists(path))
+                                {
+                                    Directory.CreateDirectory(path);
+                                }
+                                postedFile.SaveAs(path + Helper.GetCurrentUser().userID.ToString() + Path.GetExtension(postedFile.FileName));
+                                versions.Add("", "maxwidth=120&maxheight=120&format=jpg");
+                                foreach (var suffix in versions.Keys)
+                                {
+                                    postedFile.InputStream.Seek(0, SeekOrigin.Begin);
+                                    ImageBuilder.Current.Build(
+                                        new ImageJob(
+                                            postedFile.InputStream,
+                                            path + user.userID.ToString() + suffix,
+                                            new Instructions(versions[suffix]),
+                                            false,
+                                            true));
+                                }
+                                ViewBag.Message = "File uploaded successfully.";
+                            }
+                        }
+                        return RedirectToAction("Profile");
+                    }
+                    return View(user);
+                }
+                else
+                    return RedirectToAction("Login", "Home");
+            }
+            catch (Exception ex)
+            {
+                Error objError = new Error();
+                objError.page = "Users";
+                objError.option = "Edit-2";
+                objError.date = DateTime.Now;
+                objError.description = ex.Message;
+                BaseDataAccess<Error> baseDataAccess = new BaseDataAccess<Error>();
+                baseDataAccess.Insert(objError);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
 
         // GET: /User/
         public ActionResult Index()
@@ -76,6 +189,9 @@ namespace BuildingProject.Controllers
                     if (objUser == null && objUserEmail == null)
                     {
                         user.createDate = DateTime.Now;
+                        user.createUser = Helper.GetCurrentUser().userID;
+                        user.name = user.name.ToUpper();
+                        user.lastname = user.lastname.ToUpper();
                         db.User.Add(user);
                         db.SaveChanges();
                         return RedirectToAction("Index");
@@ -163,6 +279,9 @@ namespace BuildingProject.Controllers
                     else
                     {
                         user.updateDate = DateTime.Now;
+                        user.updateUser = Helper.GetCurrentUser().userID;
+                        user.name = user.name.ToUpper();
+                        user.lastname = user.lastname.ToUpper();
                         db.Entry(user).State = EntityState.Modified;
                         db.SaveChanges();
                     }
