@@ -1,8 +1,10 @@
 ﻿using LightInject;
 using System.Reflection;
 using Owin;
+using Microsoft.Owin;
 
-namespace BuildingProject.App_Start
+[assembly: OwinStartup(typeof(BuildingProject.Startup))]
+namespace BuildingProject
 {
     public partial class Startup
     {

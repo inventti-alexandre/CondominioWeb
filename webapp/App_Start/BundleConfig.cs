@@ -12,14 +12,6 @@ namespace BuildingProject
         {
             bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory(
                 "~/Content/css", "*.min.css", true));
-            //bundles.Add(new StyleBundle("~/content/smartadmin").Include(
-            //    "~/Content/css/bootstrap.min.css",
-            //    "~/Content/css/font-awesome.min.css",
-            //    "~/Content/css/lockscreen.min.css",
-            //    "~/Content/css/smartadmin-production.min.css",
-            //    "~/Content/css/smartadmin-rtl.min.css",
-            //    "~/Content/css/smartadmin-skins.min.css"));
-
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",
@@ -67,10 +59,10 @@ namespace BuildingProject
                 "~/scripts/plugin/datatable-responsive/datatables.responsive.min.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/scripts/jq-grid").Include(
-                "~/scripts/plugin/jqgrid/jquery.jqGrid.min.js",
-                "~/scripts/plugin/jqgrid/grid.locale-en.min.js"
-                ));
+            //bundles.Add(new ScriptBundle("~/scripts/jq-grid").Include(
+            //    "~/scripts/plugin/jqgrid/jquery.jqGrid.min.js",
+            //    "~/scripts/plugin/jqgrid/grid.locale-en.min.js"
+            //    ));
 
             bundles.Add(new ScriptBundle("~/scripts/forms").Include(
                 "~/scripts/plugin/jquery-form/jquery-form.min.js"
@@ -81,10 +73,10 @@ namespace BuildingProject
                 "~/scripts/smart-chat-ui/smart.chat.manager.min.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/scripts/vector-map").Include(
-                "~/scripts/plugin/vectormap/jquery-jvectormap-1.2.2.min.js",
-                "~/scripts/plugin/vectormap/jquery-jvectormap-world-mill-en.js"
-                ));
+            //bundles.Add(new ScriptBundle("~/scripts/vector-map").Include(
+            //    "~/scripts/plugin/vectormap/jquery-jvectormap-1.2.2.min.js",
+            //    "~/scripts/plugin/vectormap/jquery-jvectormap-world-mill-en.js"
+            //    ));
 
             BundleTable.EnableOptimizations = true;
         }
