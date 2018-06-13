@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace BuildingProject
 {
@@ -22,6 +23,20 @@ namespace BuildingProject
         public static User GetCurrentUser()
         {
             return (User)(HttpContext.Current.Session["USR_SESSION"]);
+        }
+        public static string GetCurrentUserLogo()
+        {
+            var current_user = (User)(HttpContext.Current.Session["USR_SESSION"]);
+
+            string path = HttpContext.Current.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["userImgURLFile"] + current_user.userID.ToString() + ".jpg");
+            if (!System.IO.File.Exists(@path))
+                path = System.Configuration.ConfigurationManager.AppSettings["userImgURLBase"];
+            else
+                path = System.Configuration.ConfigurationManager.AppSettings["userImgURL"] + current_user.userID.ToString() + ".jpg";
+
+            current_user.imageURL = path;
+
+            return path;
         }
         public static DateTime GetDateNow(DateTime date)
         {

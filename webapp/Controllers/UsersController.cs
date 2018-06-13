@@ -25,11 +25,12 @@ namespace BuildingProject.Controllers
                 {
                     User user = db.User.Find(Helper.GetCurrentUser().userID);
 
-                    string path = System.Configuration.ConfigurationManager.AppSettings["userImgURL"] + user.userID.ToString() + ".jpg";
+                    string path = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["userImgURLFile"] + user.userID.ToString() + ".jpg");
                     if (!System.IO.File.Exists(@path))
-                    {
                         path = System.Configuration.ConfigurationManager.AppSettings["userImgURLBase"];
-                    }
+                    else
+                        path = System.Configuration.ConfigurationManager.AppSettings["userImgURL"] + user.userID.ToString() + ".jpg";
+
                     user.imageURL = path;
 
                     if (user == null)

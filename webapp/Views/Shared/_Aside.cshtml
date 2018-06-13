@@ -3,6 +3,7 @@
     var option = new DataUtil();
 }
 <aside id="left-panel">
+    @{ Html.RenderPartial("_CurrentUser"); }
     <nav>
         <ul>
             <li>
@@ -41,15 +42,14 @@
             </li>
             @if (option.ValidateOption(DataUtil.GetUser().userID, 7))
             {
-            <li class="chat-users top-menu-invisible">
-                <a href="#"><i class="fa fa-lg fa-fw fa-comment-o"><em class="bg-color-pink flash animated">!</em></i> <span class="menu-item-parent">@option.GetOption(7).name</span></a>
-                <ul>
-                   <div class="display-users">
-                            <dl id="userList">
-                            </dl>
-                        </div>                   
-                </ul>
-            </li>
+                <li class="chat-users top-menu-invisible">
+                    <a href="#"><i class="fa fa-lg fa-fw fa-comment-o"><em class="bg-color-pink flash animated">!</em></i> <span class="menu-item-parent">@option.GetOption(7).name</span></a>
+                    <ul>
+                        <div class="display-users">
+                            <dl id="userList"></dl>
+                        </div>
+                    </ul>
+                </li>
             }
         </ul>
     </nav>
