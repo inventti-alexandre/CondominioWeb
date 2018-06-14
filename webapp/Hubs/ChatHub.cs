@@ -32,8 +32,8 @@ namespace BuildingProject.Hubs
         public override Task OnDisconnected(bool stopCalled)
         {
             var disconnectedUser = ConnectedUsers.FirstOrDefault(c => c.ID.Equals(Context.ConnectionId));
-            ConnectedUsers.Remove(disconnectedUser);
-            Clients.All.updateUsers(ConnectedUsers.Count(), ConnectedUsers.Select(u => new { u.Username, u.Name }));
+            ConnectedUsers.Remove(disconnectedUser);            
+            Clients.All.updateUsers(ConnectedUsers.Count(), ConnectedUsers.Select(u => new { u.UserID, u.Username, u.Name, u.ID }));
             return base.OnDisconnected(stopCalled);
         }
     }

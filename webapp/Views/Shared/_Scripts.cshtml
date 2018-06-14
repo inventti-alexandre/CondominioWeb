@@ -44,10 +44,6 @@
                 chat.server.connect(id,username,name);
             });
 
-            $(".textarea_chat").on("keypress", function (e) {
-                alert("Enter");
-            });
-
             chat.client.updateUsers = function (userCount, userList) {
                 $('#userList').empty();
 
@@ -95,13 +91,11 @@
                 });
 
                 window.ShowMessage = function (chatid,userReceive, message) {
-                    debugger;
                     chat.server.sendV2(chatid, userReceive.first_name, message);
                 }
             }
 
             chat.client.broadcastMessage = function (chatid, userSend, userReceive, message) {
-                debugger;
                 if ($("#" + chatid).length == 0) {
                     console.log("No existe");
                     chatboxManager.addBox(chatid, {
