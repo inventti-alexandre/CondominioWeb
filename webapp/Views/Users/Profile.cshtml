@@ -4,30 +4,33 @@
 }
 
 <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
+    <header>
+        <h2>Mi Perfil</h2>
+    </header>
     <div>
         <div class="jarviswidget-editbox">
         </div>
         <div class="widget-body">
-            <h4>Mi Perfil</h4>
             <fieldset>
                 @using (Html.BeginForm("Profile", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
+                <div class="form-horizontal">
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.userID)
-                        @Html.HiddenFor(model => model.active)
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.userID)
+                    @Html.HiddenFor(model => model.active)
 
-
-                        <div class="col-sm-3 profile-pic">
-                            <img src="@Model.imageURL" alt="user">
-                        </div>
+                    <div class="form-group" style="height:10px"></div>
                         <div class="form-group">
-                            <input type="file" name="postedFile" accept=".PNG,.TXT,.JPG,.BMP" />
+                            <div class="col-sm-3 profile-pic">
+                                <img src="@Model.imageURL" alt="user">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="file" name="postedFile" accept=".PNG,.TXT,.JPG,.BMP" class="form-control"/>
+                            </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-6">
@@ -91,9 +94,9 @@
                             </div>
                         </div>
                     </div>
-                }
+                    }
 
-            </fieldset>
+</fieldset>
         </div>
     </div>
 </div>

@@ -27,8 +27,8 @@
 <!-- Full Calendar -->
 @Scripts.Render("~/scripts/full-calendar")
 <!-- DO NOT REMOVE : GLOBAL FUNCTIONS! -->
-<script type="text/javascript" src="../Scripts/jquery.signalR-2.1.2.min.js"></script>
-<script type="text/javascript" src="../signalr/hubs"></script>
+<script type="text/javascript" src="@Helper.GetServer()/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script type="text/javascript" src="@Helper.GetServer()/signalr/hubs"></script>
 <script>
     $(document).ready(function () {
         pageSetUp();

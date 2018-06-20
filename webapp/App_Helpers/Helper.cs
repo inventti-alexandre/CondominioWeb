@@ -20,6 +20,10 @@ namespace BuildingProject
             }
             return result;
         }
+        public static string GetServer()
+        {
+            return System.Configuration.ConfigurationManager.AppSettings["servidorURL"];
+        }
         public static User GetCurrentUser()
         {
             return (User)(HttpContext.Current.Session["USR_SESSION"]);

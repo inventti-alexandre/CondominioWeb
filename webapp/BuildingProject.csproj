@@ -251,6 +251,7 @@
     <Content Include="Scripts\app.config.js" />
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\BuildingSoft\Index.js" />
     <Content Include="Scripts\demo.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
