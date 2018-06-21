@@ -27,14 +27,8 @@ namespace BuildingProject.DataAccess
         }
         public bool ValidateOption(int user_id, int option_id)
         {
-            var userRoles = db.UserRole.Where(u => u.userID == user_id);
-            var roleOptions = db.RoleOption.Where(u => u.optionID == option_id);
-            foreach (var item in userRoles)
-            {
-                if (roleOptions.Where(u => u.roleID == item.roleID).Count() > 0)
-                    return true;
-            }
-            return false;
+            var validate = (from x in db.UserRole join y in db.RoleOption on x.roleID equals y.roleID where x.userID == user_id && y.optionID == option_id select 1).Any();
+            return validate;
         }
         public Option GetOption(int id)
         {

@@ -64,8 +64,9 @@ namespace BuildingProject.Controllers
         public ActionResult Login(User objUser)
         {
             try
-            { 
-            var user = db.User.FirstOrDefault(u => u.username == objUser.username && u.password == objUser.password && u.active == true);
+            {
+                //var user = db.User.FirstOrDefault(u => u.username == objUser.username && u.password == objUser.password && u.active == true);
+                var user = (from x in db.User where x.username == objUser.username && x.password == objUser.password && x.active == true select x).FirstOrDefault();
 
             if (user != null)
             {

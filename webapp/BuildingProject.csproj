@@ -720,7 +720,6 @@
     <Content Include="Views\Apartments\Index.cshtml" />
     <Content Include="Views\ApartmentUsers\Create.cshtml" />
     <Content Include="Views\ApartmentUsers\Delete.cshtml" />
-    <Content Include="Views\ApartmentUsers\Details.cshtml" />
     <Content Include="Views\ApartmentUsers\Edit.cshtml" />
     <Content Include="Views\ApartmentUsers\Index.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />

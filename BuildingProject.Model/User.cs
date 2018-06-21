@@ -64,6 +64,7 @@ namespace BuildingProject.Model
         [NotMapped]
         public int apartmentID { get; set; }
         [NotMapped]
+        [Display(Name = "Principal")]
         public bool principal { get; set; }
         [NotMapped]
         public string imageURL { get; set; }
