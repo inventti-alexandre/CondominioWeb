@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using BuildingProject.DataAccess;
 
 namespace BuildingProject
 {
@@ -77,6 +78,13 @@ namespace BuildingProject
                 dropDown.Insert(0, (new SelectListItem { Text = "[Seleccionar]", Value = "0" }));
             }
             return dropDown;
+        }
+
+        public static List<string> ChatHistoy(string chatCode)
+        {
+            BuildingContext db = new BuildingContext();
+            var chatList = (from x in db.Chat where x.chatCode==chatCode orderby x.createDate select x.message).ToList();
+            return chatList;
         }
     }
 }

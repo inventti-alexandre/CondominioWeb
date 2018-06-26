@@ -84,6 +84,9 @@
                                 "alertmsg": "",
                                 "alertshow": "false"
                             })
+                            if ($("#" + chatID).text() == "") {
+                                getHistory(chatID);
+                            }
                         });
 
                     }
@@ -97,7 +100,6 @@
 
             chat.client.broadcastMessage = function (chatid, userSend, userReceive, message) {
                 if ($("#" + chatid).length == 0) {
-                    console.log("No existe");
                     chatboxManager.addBox(chatid, {
                         "title": "username" + chatid,
                         "first_name": userSend,
@@ -105,14 +107,40 @@
                         "status": "online",
                         "alertmsg": "",
                         "alertshow": "false"
-                    });
-                }
+                    });                    
+                }                
 
-                $("#" + chatid).chatbox("option", "boxManager").addMsg(userSend, message);
+                if ($("#" + chatid).text() == "") {
+                    getHistory(chatid);
+                }
+                else {
+                    $("#" + chatid).chatbox("option", "boxManager").addMsg(userSend, message);
+                }                
             }
 
         });
 
+
+    function getHistory(chatID) {
+        var args = {
+            chatCode: chatID
+        }; 
+        $.ajax({  
+            type: "GET",
+            url: '@Helper.GetServer()/Users/getHistory',
+            data: args,
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (response) {  
+                $.each(response, function (index, value) {
+                    $(value).appendTo("#" + chatID);
+                });  
+            },            
+            failure: function (jqXHR, textStatus, errorThrown) {                  
+                alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message  
+            }  
+        });  
+    }  
 </script>
 @if (@Model is HelperResult)
 {

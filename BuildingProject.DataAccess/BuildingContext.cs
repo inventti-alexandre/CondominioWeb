@@ -29,6 +29,6 @@ namespace BuildingProject.DataAccess
         public virtual DbSet<Error> Error { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<PostCategory> PostCategory { get; set; }
-
+        public virtual DbSet<Chat> Chat { get; set; }
     }
 }

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Apartment.cs" />
     <Compile Include="ApartmentUser.cs" />
+    <Compile Include="Chat.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="PostCategory.cs" />

@@ -2,6 +2,9 @@
 using System.Linq;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
+using BuildingProject.DataAccess;
+using BuildingProject.Model;
+using System;
 
 namespace BuildingProject.Hubs
 {
@@ -12,6 +15,7 @@ namespace BuildingProject.Hubs
             Clients.All.hello();
         }
         public static List<Client> ConnectedUsers { get; set; } = new List<Client>();
+        private BuildingContext db = new BuildingContext();
         public void Connect(string id, string username, string name)
         {
             Client c = new Client()
@@ -28,6 +32,17 @@ namespace BuildingProject.Hubs
         {
             var sender = ConnectedUsers.First(u => u.ID.Equals(Context.ConnectionId));
             Clients.All.broadcastMessage(chatID, sender.Name, userReceive, message);
+            Chat objChat = new Chat();
+            objChat.chatCode = chatID;
+            objChat.createDate = DateTime.Now;
+            objChat.message = "<div class='ui-chatbox-msg' style='display: block; max-width: 208px;'><b>" + sender.Name + ": </b><span>" + message + "</span></div>";
+            db.Chat.Add(objChat);
+            db.SaveChanges();
+        }
+        public List<string> GetHistory(string chatCode)
+        {
+            var chatList = (from x in db.Chat where x.chatCode == chatCode orderby x.createDate select x.message).ToList();
+            return chatList;
         }
         public override Task OnDisconnected(bool stopCalled)
         {

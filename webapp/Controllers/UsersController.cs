@@ -308,5 +308,13 @@ namespace BuildingProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpGet]
+        public JsonResult getHistory(string chatCode)
+        {
+            BuildingContext db = new BuildingContext();
+            var chatList = (from x in db.Chat where x.chatCode == chatCode orderby x.createDate select x.message).ToList();
+            return Json(chatList, JsonRequestBehavior.AllowGet);
+        }
     }
 }
